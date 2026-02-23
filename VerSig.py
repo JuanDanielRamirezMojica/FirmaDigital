@@ -3,7 +3,9 @@ VerSig.py - Verificación de Firma Digital con RSA + SHA-256
 ============================================================
 Equivalente Python del programa VerSig.java de Oracle.
 
-Uso:
+Puede usarse desde la terminal O importarse como módulo por app_firma.py.
+
+Uso desde terminal:
     python VerSig.py <llave_publica> <firma> <archivo_original>
 
 Ejemplo:
@@ -16,6 +18,10 @@ from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.exceptions import InvalidSignature
 
+
+# ─────────────────────────────────────────────
+# FUNCIONES REUTILIZABLES (usadas por CLI y GUI)
+# ─────────────────────────────────────────────
 
 def load_public_key(filepath):
     """
@@ -64,17 +70,30 @@ def verify_signature(public_key, signature, data_filepath):
         return False
 
 
+def verify_file(public_key_path, signature_path, data_path):
+    """
+    Función de alto nivel que recibe 3 rutas y devuelve True/False.
+    Usada principalmente por app_firma.py (GUI).
+    """
+    public_key = load_public_key(public_key_path)
+    signature  = load_signature(signature_path)
+    return verify_signature(public_key, signature, data_path)
+
+
+# ─────────────────────────────────────────────
+# MAIN — solo se ejecuta si se corre desde CLI
+# ─────────────────────────────────────────────
+
 def main():
     if len(sys.argv) != 4:
         print("Uso: python VerSig.py <llave_publica> <firma> <archivo_datos>")
         print("Ejemplo: python VerSig.py public_key.pem signature.bin data.txt")
         sys.exit(1)
 
-    pubkey_file  = sys.argv[1]
-    sig_file     = sys.argv[2]
-    data_file    = sys.argv[3]
+    pubkey_file = sys.argv[1]
+    sig_file    = sys.argv[2]
+    data_file   = sys.argv[3]
 
-    # Verificar que los archivos existen
     for f in [pubkey_file, sig_file, data_file]:
         if not os.path.exists(f):
             print(f"[ERROR] No se encontró el archivo: {f}")
@@ -84,14 +103,7 @@ def main():
     print("   VERIFICACIÓN DE FIRMA DIGITAL - RSA + SHA-256")
     print("=" * 55)
 
-    # 1. Cargar la llave pública
-    public_key = load_public_key(pubkey_file)
-
-    # 2. Cargar la firma
-    signature = load_signature(sig_file)
-
-    # 3. Verificar
-    result = verify_signature(public_key, signature, data_file)
+    result = verify_file(pubkey_file, sig_file, data_file)
 
     print("=" * 55)
     if result:

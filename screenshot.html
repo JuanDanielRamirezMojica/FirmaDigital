@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Screenshot - Firma Digital</title>
+<style>
+  body { margin: 0; background: #1e1e2e; font-family: monospace; padding: 20px; }
+  .window { background: #1e1e2e; border-radius: 10px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.6); max-width: 780px; margin: 0 auto; }
+  .titlebar { background: #313244; padding: 12px 16px; display: flex; align-items: center; gap: 8px; }
+  .dot { width: 13px; height: 13px; border-radius: 50%; }
+  .red { background: #f38ba8; }
+  .yellow { background: #f9e2af; }
+  .green { background: #a6e3a1; }
+  .title { color: #cdd6f4; font-size: 13px; margin-left: 10px; }
+  .terminal { padding: 20px 24px; font-size: 13.5px; line-height: 1.7; }
+  .prompt { color: #89b4fa; }
+  .cmd { color: #cdd6f4; }
+  .ok { color: #a6e3a1; }
+  .warn { color: #f38ba8; }
+  .info { color: #89dceb; }
+  .dim { color: #6c7086; }
+  .sep { color: #585b70; }
+  .bold { font-weight: bold; color: #cba6f7; }
+  p { margin: 0; white-space: pre; }
+</style>
+</head>
+<body>
+<div class="window">
+  <div class="titlebar">
+    <div class="dot red"></div>
+    <div class="dot yellow"></div>
+    <div class="dot green"></div>
+    <span class="title">Terminal — bash</span>
+  </div>
+  <div class="terminal">
+
+<p><span class="prompt">alice@ubuntu:~/firma-digital$</span> <span class="cmd">python GenSig.py data.txt</span></p>
+<p><span class="sep">=======================================================</span></p>
+<p><span class="bold">   GENERACIÓN DE FIRMA DIGITAL - RSA + SHA-256</span></p>
+<p><span class="sep">=======================================================</span></p>
+<p><span class="info">[*] Generando par de llaves RSA 2048-bit...</span></p>
+<p><span class="ok">[+] Par de llaves generado exitosamente.</span></p>
+<p><span class="ok">[+] Llave pública guardada en: public_key.pem</span></p>
+<p><span class="info">[*] Leyendo archivo a firmar: data.txt</span></p>
+<p><span class="info">[*] Generando firma digital (RSA + SHA-256)...</span></p>
+<p><span class="ok">[+] Firma digital generada exitosamente.</span></p>
+<p><span class="ok">[+] Firma digital guardada en: signature.bin</span></p>
+<p><span class="dim">    Tamaño de la firma: 256 bytes (2048 bits)</span></p>
+<p><span class="sep">=======================================================</span></p>
+<p><span class="ok">[✓] Proceso completado. Archivos generados:</span></p>
+<p><span class="dim">    - public_key.pem  (llave pública)</span></p>
+<p><span class="dim">    - signature.bin   (firma digital)</span></p>
+<p><span class="sep">=======================================================</span></p>
+<p></p>
+<p><span class="prompt">alice@ubuntu:~/firma-digital$</span> <span class="cmd">python VerSig.py public_key.pem signature.bin data.txt</span></p>
+<p><span class="sep">=======================================================</span></p>
+<p><span class="bold">   VERIFICACIÓN DE FIRMA DIGITAL - RSA + SHA-256</span></p>
+<p><span class="sep">=======================================================</span></p>
+<p><span class="info">[*] Cargando llave pública desde: public_key.pem</span></p>
+<p><span class="ok">[+] Llave pública cargada exitosamente.</span></p>
+<p><span class="info">[*] Cargando firma digital desde: signature.bin</span></p>
+<p><span class="ok">[+] Firma cargada (256 bytes).</span></p>
+<p><span class="info">[*] Leyendo datos del archivo: data.txt</span></p>
+<p><span class="info">[*] Verificando firma digital...</span></p>
+<p><span class="sep">=======================================================</span></p>
+<p><span class="ok">[✓] signature verifies: TRUE</span></p>
+<p><span class="ok">    El documento es auténtico e íntegro.</span></p>
+<p><span class="sep">=======================================================</span></p>
+<p></p>
+<p><span class="prompt">alice@ubuntu:~/firma-digital$</span> <span class="cmd">python VerSig.py public_key.pem signature.bin tampered.txt</span></p>
+<p><span class="sep">=======================================================</span></p>
+<p><span class="bold">   VERIFICACIÓN DE FIRMA DIGITAL - RSA + SHA-256</span></p>
+<p><span class="sep">=======================================================</span></p>
+<p><span class="info">[*] Cargando llave pública desde: public_key.pem</span></p>
+<p><span class="ok">[+] Llave pública cargada exitosamente.</span></p>
+<p><span class="info">[*] Cargando firma digital desde: signature.bin</span></p>
+<p><span class="ok">[+] Firma cargada (256 bytes).</span></p>
+<p><span class="info">[*] Leyendo datos del archivo: tampered.txt</span></p>
+<p><span class="info">[*] Verificando firma digital...</span></p>
+<p><span class="sep">=======================================================</span></p>
+<p><span class="warn">[✗] signature verifies: FALSE</span></p>
+<p><span class="warn">    ADVERTENCIA: El documento fue alterado o la firma no corresponde.</span></p>
+<p><span class="sep">=======================================================</span></p>
+<p></p>
+<p><span class="prompt">alice@ubuntu:~/firma-digital$</span> <span class="cmd">█</span></p>
+
+  </div>
+</div>
+</body>
+</html>

@@ -25,10 +25,10 @@ BG      = "#0f1117"
 PANEL   = "#1a1d27"
 BORDER  = "#2a2d3e"
 ACCENT  = "#6c63ff"
-ACCENT2 = "#00d9a6"
+ACCENT2 = "#e39afa"
 TEXT    = "#e8e8f0"
 SUBTEXT = "#6b6d82"
-SUCCESS = "#00d9a6"
+SUCCESS = "#12d900"
 ERROR   = "#ff5c7a"
 WARNING = "#f5a623"
 
@@ -54,7 +54,7 @@ class App(tk.Tk):
     def _build_ui(self):
         hdr = tk.Frame(self, bg=BG, pady=24)
         hdr.pack(fill="x")
-        tk.Label(hdr, text="🔐 Firma Digital RSA", font=("Courier New", 22, "bold"),
+        tk.Label(hdr, text="Firma Digital RSA", font=("Courier New", 22, "bold"),
                  bg=BG, fg=ACCENT).pack()
         tk.Label(hdr, text="SHA-256  ·  2048 bits  ·  PSS padding",
                  font=("Courier New", 10), bg=BG, fg=SUBTEXT).pack(pady=(2, 0))
@@ -108,8 +108,8 @@ class App(tk.Tk):
                  font=("Courier New", 9, "bold"), bg=BG, fg=SUBTEXT).pack(anchor="w", pady=(16, 4))
         row = tk.Frame(self.frame_sign, bg=BG)
         row.pack(fill="x")
-        self._btn(row, "📂 Cargar private_key.pem", self._pick_privkey).pack(side="left")
-        self._btn(row, "✨ Generar nueva", self._clear_privkey, color=BORDER).pack(side="left", padx=(8, 0))
+        self._btn(row, "Cargar private_key.pem", self._pick_privkey).pack(side="left")
+        self._btn(row, "Generar nueva", self._clear_privkey, color=BORDER).pack(side="left", padx=(8, 0))
         tk.Label(self.frame_sign, textvariable=self.privkey_path,
                  font=("Courier New", 9), bg=BG, fg=WARNING, wraplength=600).pack(anchor="w", pady=(4, 0))
 
@@ -134,7 +134,7 @@ class App(tk.Tk):
 
     def _clear_privkey(self):
         self.privkey_path.set("")
-        self._log(self.log_sign, "✨ Se generará una llave privada nueva al firmar.", SUBTEXT)
+        self._log(self.log_sign, "Se generará una llave privada nueva al firmar.", SUBTEXT)
 
     def _do_sign(self):
         doc = self.doc_path.get()
@@ -212,7 +212,7 @@ class App(tk.Tk):
                      font=("Courier New", 9), bg=BG, fg=ACCENT2, wraplength=600).pack(anchor="w", pady=(4, 0))
 
         tk.Frame(self.frame_verify, bg=BORDER, height=1).pack(fill="x", pady=20)
-        self._btn(self.frame_verify, "🔍  VERIFICAR FIRMA", self._do_verify,
+        self._btn(self.frame_verify, "VERIFICAR FIRMA", self._do_verify,
                   color=ACCENT2, big=True).pack(fill="x")
 
         self.log_verify = self._log_box(self.frame_verify)

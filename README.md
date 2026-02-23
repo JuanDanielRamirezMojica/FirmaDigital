@@ -1,7 +1,9 @@
-# Tarea Firma Digital RSA
+# 🔐 Firma Digital RSA
 
 Implementación de firma digital usando **RSA + SHA-256** en Python.  
 Equivalente al programa `GenSig.java` / `VerSig.java` de la guía oficial de Oracle.
+
+Disponible en dos modos: **línea de comandos (CLI)** e **interfaz gráfica (GUI)**.
 
 ---
 
@@ -36,8 +38,9 @@ Si alguien cambia aunque sea un espacio del documento, la verificación falla.
 
 | Archivo | Descripción |
 |---|---|
-| `GenSig.py` | Genera las llaves y firma un archivo |
-| `VerSig.py` | Verifica la autenticidad de una firma |
+| `GenSig.py` | Lógica de generación de llaves y firma — usable como CLI o módulo |
+| `VerSig.py` | Lógica de verificación — usable como CLI o módulo |
+| `app_firma.py` | Interfaz gráfica — importa su lógica de `GenSig.py` y `VerSig.py` |
 | `data.txt` | Documento de ejemplo a firmar |
 | `public_key.pem` | Llave pública generada (formato X.509/PEM) |
 | `signature.bin` | Firma digital binaria (256 bytes = 2048 bits) |
@@ -55,17 +58,9 @@ pip install cryptography
 
 ---
 
-## Uso
+## Uso — CLI (línea de comandos)
 
 ### 1. Firmar un documento
-
-Pra firmar un documento, se debe introducir el sigueinte comando:
-
-
-```bash
-python GenSig.py <Archivo a frimar>
-```
-Como se ve en el siguiente ejemplo:
 
 ```bash
 python GenSig.py data.txt
@@ -89,6 +84,39 @@ python VerSig.py public_key.pem signature.bin data.txt
 [✓] signature verifies: TRUE   → documento auténtico e íntegro
 [✗] signature verifies: FALSE  → documento alterado o firma inválida
 ```
+
+---
+
+## Uso — GUI (interfaz gráfica)
+
+```bash
+python app_firma.py
+```
+
+No requiere instalar nada extra — usa `tkinter` que viene incluido con Python.
+
+La ventana tiene dos pestañas:
+
+**Pestaña FIRMAR:**
+- Clic en la zona para seleccionar cualquier archivo
+- Opción de cargar una llave privada existente (`private_key.pem`) o generar una nueva
+- Si generas una nueva, el programa pregunta si deseas guardarla para reutilizarla
+- Los archivos generados (`public_key.pem` y `signature.bin`) se guardan en la misma carpeta del documento
+
+**Pestaña VERIFICAR:**
+- Seleccionar los 3 archivos: llave pública, firma y documento
+- El resultado se muestra en pantalla — verde si es válido, rojo si no
+
+### Arquitectura del front
+
+`app_firma.py` **no contiene lógica criptográfica**. Solo es la interfaz visual. Importa todo desde los módulos CLI:
+
+```python
+from GenSig import generate_keys, sign_file, save_public_key, save_private_key, load_private_key, save_signature
+from VerSig import verify_file
+```
+
+Esto significa que los tres archivos deben estar en la misma carpeta para que funcione.
 
 ---
 
@@ -164,4 +192,4 @@ Este sistema no incluye **certificados digitales**. Eso significa que si alguien
 | Versión | Descripción |
 |---|---|
 | `v1.0` — CLI | Implementación por línea de comandos (`GenSig.py` + `VerSig.py`) |
-| `v2.0` — GUI | Interfaz gráfica con ventana y selección de archivos (`app_firma.py`) |
+| `v2.0` — GUI | Se agrega `app_firma.py` como interfaz gráfica. `GenSig.py` y `VerSig.py` se refactorizan para ser importables como módulos sin romper su funcionamiento CLI |

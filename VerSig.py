@@ -20,7 +20,7 @@ from cryptography.exceptions import InvalidSignature
 
 
 # ─────────────────────────────────────────────
-# FUNCIONES REUTILIZABLES (usadas por CLI y GUI)
+# FUNCIONES REUTILIZABLES 
 # ─────────────────────────────────────────────
 
 def load_public_key(filepath):

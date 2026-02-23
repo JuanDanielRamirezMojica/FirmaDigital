@@ -22,7 +22,7 @@ from cryptography.hazmat.primitives import hashes, serialization
 
 
 # ─────────────────────────────────────────────
-# FUNCIONES REUTILIZABLES (usadas por CLI y GUI)
+# FUNCIONES REUTILIZABLES 
 # ─────────────────────────────────────────────
 
 def generate_keys():

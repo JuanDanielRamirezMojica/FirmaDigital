@@ -1,0 +1,40 @@
+# ── Llaves y archivos criptográficos ──────────────
+# NUNCA subir la llave privada al repositorio
+private_key.pem
+
+# Las firmas y llaves públicas generadas tampoco
+# (se generan al correr el programa)
+signature.bin
+public_key.pem
+
+# ── Python ────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Entornos virtuales
+venv/
+env/
+.env/
+.venv/
+
+# ── IDEs ──────────────────────────────────────────
+.vscode/
+.idea/
+*.suo
+*.user
+
+# ── Sistema operativo ─────────────────────────────
+# Windows
+Thumbs.db
+desktop.ini
+
+# macOS
+.DS_Store
+.AppleDouble
+
+# ── Otros ─────────────────────────────────────────
+*.log
+*.tmp
